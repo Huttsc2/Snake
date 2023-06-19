@@ -1,11 +1,11 @@
 ﻿namespace SnakeApp
 {
-    public class Dot
+    public class Point
     {
         protected int XCoorinate { get; set; }
         protected int YCoordiante { get; set; }
 
-        public Dot(int x, int y)
+        public Point(int x, int y)
         {
             XCoorinate = x;
             YCoordiante = y;

@@ -4,11 +4,13 @@
     {
         private Area Area;
         private Snake Snake;
+        private Food Food;
 
-        public Drawing(Area area, Snake snake)
+        public Drawing(Area area, Snake snake, Food food)
         {
             Area = area;
             Snake = snake;
+            Food = food;
         }
 
         public void Draw()
@@ -28,6 +30,10 @@
                     else if (Snake.GetSnakeCoordinats().Any(e => e.GetY() == i && e.GetX() == j))
                     {
                         Console.Write("☻");
+                    }
+                    else if (j == Food.GetX() && i == Food.GetY())
+                    {
+                        Console.Write("*");
                     }
                     else
                     {

@@ -2,25 +2,36 @@
 {
     public class Snake
     {
-        protected List<Dot> SnakeCoordinats = new();
-        protected int SnakeLenght = 50;
+        protected List<Point> SnakeCoordinats = new();
+        protected int StartingSnakeLenght;
         static string? lastInput = null;
         
 
-        public Snake(int x, int y)
+        public Snake(int x, int y, int lenght)
         {
-            for (int i = 0; i < SnakeLenght; i++)
+            StartingSnakeLenght = lenght;
+            for (int i = 0; i < StartingSnakeLenght; i++)
             {
-                SnakeCoordinats.Add(new Dot(x, y-i));
+                SnakeCoordinats.Add(new Point(x, y-i));
             }
         }
 
-        public List<Dot> GetSnakeCoordinats()
+        public List<Point> GetSnakeCoordinats()
         {
             return SnakeCoordinats;
         }
 
-        public void UpdateCoordinats(string key)
+        public Point GetSnakeHeadCoordinats()
+        {
+            return SnakeCoordinats[0];
+        }
+
+        public void GrowSnake()
+        {
+            SnakeCoordinats.Add(new Point(SnakeCoordinats[SnakeCoordinats.Count-1].GetX(), SnakeCoordinats[SnakeCoordinats.Count - 1].GetY()));
+        }
+
+        public void UpdateSnakeCoordinats(string key)
         {
             Control control = new Control();
             key = control.CheckInput(lastInput);
@@ -51,7 +62,7 @@
 
         public void SetBodyCoordinate()
         {
-            for (int i = SnakeLenght-1; i > 0; i--)
+            for (int i = SnakeCoordinats.Count-1; i > 0; i--)
             {
                 SnakeCoordinats[i].SetY(SnakeCoordinats[i-1].GetY());
                 SnakeCoordinats[i].SetX(SnakeCoordinats[i-1].GetX());
