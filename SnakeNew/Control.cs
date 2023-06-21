@@ -10,12 +10,28 @@
                 switch (keyInfo.KeyChar)
                 {
                     case 'w':
+                        if (lastInput == "s")
+                        {
+                            break;
+                        }
                         return "w";
                     case 's':
+                        if (lastInput == "w")
+                        {
+                            break;
+                        }
                         return "s";
                     case 'a':
+                        if (lastInput == "d")
+                        {
+                            break;
+                        }
                         return "a";
                     case 'd':
+                        if (lastInput == "a")
+                        {
+                            break;
+                        }
                         return "d";
                 }
             }

@@ -4,12 +4,12 @@ namespace SnakeApp
 {
     public class Drawing
     {
-        private static Area Area;
-        private static Snake Snake;
-        private static Food Food;
-        private static int Height;
-        private static int Width;
-        private static char[,] Array;
+        private static Area Area { get; set; }
+        private static Snake Snake { get; set; }    
+        private static Food Food { get; set; }
+        private static int Height { get; set; }
+        private static int Width { get; set; }
+        private static char[,] Array { get; set; }
         private static StringBuilder Buffer = new StringBuilder();
 
         public Drawing(Area area, Snake snake, Food food)
@@ -19,7 +19,6 @@ namespace SnakeApp
             Food = food;
             Height = Area.GetHeight();
             Width = Area.GetWidth();
-            
         }
 
         public void SetCharArray()
@@ -73,7 +72,7 @@ namespace SnakeApp
             SetCharArray();
             SetStringBuffer();
             Console.Clear();
-            Console.WriteLine(Buffer.ToString());
+            Console.Write(Buffer.ToString());
             Buffer.Clear();
         }
     }

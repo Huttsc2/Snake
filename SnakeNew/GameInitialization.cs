@@ -34,7 +34,7 @@
                 SnakeHeadCoordinateY = Snake.GetSnakeHeadCoordinats().GetY();
                 if (SnakeHeadCoordinateX == FoodX && SnakeHeadCoordinateY == FoodY)
                 {
-                    Food.RandomCoordinate();
+                    Food.SetRandomCoordinate();
                     Snake.GrowSnake();
                     IsEaten = true;
                 }

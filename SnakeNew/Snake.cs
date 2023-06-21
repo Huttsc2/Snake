@@ -2,9 +2,10 @@
 {
     public class Snake
     {
-        protected List<Point> SnakeCoordinats = new();
-        protected int StartingSnakeLenght;
-        static string? lastInput = null;
+        private static List<Point> SnakeCoordinats = new();
+        private static int StartingSnakeLenght;
+        private static string? lastInput = null;
+        private static Control Control = new Control();
         
 
         public Snake(int x, int y, int lenght)
@@ -33,8 +34,7 @@
 
         public void UpdateSnakeCoordinats(string? key)
         {
-            Control control = new Control();
-            key = control.CheckInput(lastInput);
+            key = Control.CheckInput(lastInput);
             if (key != null)
             {
                 lastInput = key;
