@@ -4,11 +4,13 @@ namespace SnakeApp
 {
     public class Drawing
     {
-        private Area Area;
-        private Snake Snake;
-        private Food Food;
-        private int Height;
-        private int Width;
+        private static Area Area;
+        private static Snake Snake;
+        private static Food Food;
+        private static int Height;
+        private static int Width;
+        private static char[,] Array;
+        private static StringBuilder Buffer = new StringBuilder();
 
         public Drawing(Area area, Snake snake, Food food)
         {
@@ -17,116 +19,62 @@ namespace SnakeApp
             Food = food;
             Height = Area.GetHeight();
             Width = Area.GetWidth();
+            
         }
 
-        public void DrawByConsoleWrite()
+        public void SetCharArray()
         {
+            Array = new char[Height, Width];
             for (int i = 0; i < Height; i++)
             {
                 for (int j = 0; j < Width; j++)
                 {
                     if (j == 0 || i == 0 || i == Height - 1)
                     {
-                        Console.Write("▒");
+                        Array[i, j] = '▒';
                     }
-                    
                     else if (j == Width - 1)
                     {
-                        Console.Write("▒\n");
+                        Array[i, j] = '▒';
+                    }
+                    else if (Snake.GetSnakeHeadCoordinats().GetY() == i && Snake.GetSnakeHeadCoordinats().GetX() == j)
+                    {
+                        Array[i, j] = '☻';
                     }
                     else if (Snake.GetSnakeCoordinats().Any(e => e.GetY() == i && e.GetX() == j))
                     {
-
-                        Console.Write("☻");
+                        Array[i, j] = '●';
                     }
                     else if (j == Food.GetX() && i == Food.GetY())
                     {
-                        Console.Write("*");
+                        Array[i, j] = '*';
                     }
                     else
                     {
-                        Console.Write(' ');
+                        Array[i, j] = ' ';
                     }
                 }
             }
         }
 
-        public void DrawByStringBuilder()
+        public void SetStringBuffer()
         {
-            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < Height; i++)
             {
-                sb.Clear();
                 for (int j = 0; j < Width; j++)
-                {   
-                    if (j == 0 || i == 0 || i == Height - 1)
-                    {
-                        sb.Append('▒');
-                    }
-                    else if (j == Width - 1)
-                    {
-                        sb.Append('▒');
-                        sb.Append('\n');
-                    }
-                    else if (Snake.GetSnakeCoordinats().Any(e => e.GetY() == i && e.GetX() == j)) 
-                    {
-                        sb.Append('☻');
-                    }
-                    else if (j == Food.GetX() && i == Food.GetY())
-                    {
-                        sb.Append('*');
-                    }
-                    else
-                    {
-                        sb.Append(' ');
-                    }
+                {
+                    Buffer.Append(Array[i, j]);
                 }
-                Console.SetCursorPosition(0, i);
-                Console.WriteLine(sb.ToString());
             }
         }
 
-        public void DrawByCharArray()
+        public void Draw()
         {
-            char[,] buffer = new char[Height, Width];
-            for (int i = 0; i < Height; i++)
-            {
-                for (int j = 0; j < Width; j++)
-                {
-                    if (j == 0 || i == 0 || i == Height - 1)
-                    {
-                        buffer[i, j] = '▒';
-                    }
-                    else if (j == Width - 1)
-                    {
-                        buffer[i, j] = '▒';
-                    }
-                    else if (Snake.GetSnakeCoordinats().Any(e => e.GetY() == i && e.GetX() == j))
-                    {
-                        buffer[i, j] = '☻';
-                    }
-                    else if (j == Food.GetX() && i == Food.GetY())
-                    {
-                        buffer[i, j] = '*';
-                    }
-                    else
-                    {
-                        buffer[i, j] = ' ';
-                    }
-                }
-            }
-            Console.CursorVisible = false;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < Height; i++)
-            {
-                for (int j = 0; j < Width; j++)
-                {
-                    sb.Append(buffer[i, j]);
-                }
-                Console.SetCursorPosition(0, i);
-                Console.WriteLine(sb.ToString());
-                sb.Clear();
-            }
+            SetCharArray();
+            SetStringBuffer();
+            Console.Clear();
+            Console.WriteLine(Buffer.ToString());
+            Buffer.Clear();
         }
     }
 }

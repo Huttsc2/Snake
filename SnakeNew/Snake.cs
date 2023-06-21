@@ -31,7 +31,7 @@
             SnakeCoordinats.Add(new Point(SnakeCoordinats[SnakeCoordinats.Count-1].GetX(), SnakeCoordinats[SnakeCoordinats.Count - 1].GetY()));
         }
 
-        public void UpdateSnakeCoordinats(string key)
+        public void UpdateSnakeCoordinats(string? key)
         {
             Control control = new Control();
             key = control.CheckInput(lastInput);

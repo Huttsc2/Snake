@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SnakeApp
+﻿namespace SnakeApp
 {
     public class Food : Point
     {
-        private int AreaWight;
-        private int AreaHight;
-        public Food(int x, int y, int areaWidht, int areaHeight) : base(x, y)
+        private int AreaWight { get; set; }
+        private int AreaHight { get; set; }
+        public Food(int x, int y, Area area) : base(x, y)
         {
-            AreaWight = areaWidht;
-            AreaHight = areaHeight;
+            AreaWight = area.GetWidth();
+            AreaHight = area.GetHeight();
         }
 
         public void RandomCoordinate()
