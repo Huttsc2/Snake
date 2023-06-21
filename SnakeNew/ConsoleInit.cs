@@ -2,11 +2,11 @@
 
 namespace SnakeApp
 {
-    public class ConsoleInitialization
+    public class ConsoleInit
     {
         private int Widht;
         private int Height;
-        public ConsoleInitialization(int widht, int height)
+        public ConsoleInit(int widht, int height)
         {
             Widht = widht;
             Height = height;

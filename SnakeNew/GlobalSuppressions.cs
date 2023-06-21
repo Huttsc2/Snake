@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Ожидание>", Scope = "member", Target = "~M:SnakeApp.ConsoleInitialization.Initiate")]
+[assembly: SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Ожидание>", Scope = "member", Target = "~M:SnakeApp.ConsoleInit.Initiate")]

@@ -19,7 +19,7 @@
         public void SetRandomCoordinate()
         {
             IsRelevantCoordinats = false;
-            while (IsRelevantCoordinats == false)
+            while (!IsRelevantCoordinats)
             {
                 GenerateRandomCoordinates();
                 CheckRelevantCoordinats();
