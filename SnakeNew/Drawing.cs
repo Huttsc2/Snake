@@ -10,7 +10,9 @@ namespace SnakeApp
         private static int Height { get; set; }
         private static int Width { get; set; }
         private static char[,] Array { get; set; }
-        private static StringBuilder Buffer = new StringBuilder();
+        private static int SnakeHeadCoordinateX { get; set; }
+        private static int SnakeHeadCoordinateY { get; set; }
+        private static StringBuilder Buffer { get; set; }
 
         public Drawing(Area area, Snake snake, Food food)
         {
@@ -19,11 +21,14 @@ namespace SnakeApp
             Food = food;
             Height = Area.GetHeight();
             Width = Area.GetWidth();
+            Buffer = new StringBuilder();
         }
 
         public void SetCharArray()
         {
             Array = new char[Height, Width];
+            SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
+            SnakeHeadCoordinateY = Snake.GetSnakeHeadCoordinats().GetY(); 
             for (int i = 0; i < Height; i++)
             {
                 for (int j = 0; j < Width; j++)
@@ -36,7 +41,7 @@ namespace SnakeApp
                     {
                         Array[i, j] = '▒';
                     }
-                    else if (Snake.GetSnakeHeadCoordinats().GetY() == i && Snake.GetSnakeHeadCoordinats().GetX() == j)
+                    else if (SnakeHeadCoordinateY == i && SnakeHeadCoordinateX == j)
                     {
                         Array[i, j] = '☻';
                     }

@@ -4,13 +4,13 @@
     {
         private int Width { get; set; }
         private int Height { get; set; }
-        private List<Point> Point { get; set; }
+        private List<Point> WallCoordinates { get; set; }
 
         public Area(int width, int height)
         {
             Width = width;
             Height = height;
-            Point = new List<Point>();
+            WallCoordinates = new List<Point>();
             SetWallCoordinates();
         }
 
@@ -26,7 +26,7 @@
 
         public List<Point> GetWallCoordinates()
         {
-            return Point;
+            return WallCoordinates;
         }
 
         public void SetWallCoordinates()
@@ -37,7 +37,7 @@
                 {
                     if (i == 0 || i == Height - 1 || j == -1 || j == Width - 1)
                     {
-                        Point.Add(new Point(j, i));
+                        WallCoordinates.Add(new Point(j, i));
                     }
                 }
             }

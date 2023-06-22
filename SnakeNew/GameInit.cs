@@ -12,9 +12,10 @@
         private static bool IsAlive { get; set; }
         private static int AreaWidth { get; set; }
         private static int AreaHigth { get; set; }
-        Snake Snake;
-        Food Food;
-        Drawing Drawing;
+        private static List<Point> SnakeBodyCoordinates { get; set; }
+        Snake Snake { get; set; }
+        Food Food { get; set; }
+        Drawing Drawing { get; set; }
 
 
         public GameInit(Snake snake, Food food, Drawing drawing, Area area, int speed)
@@ -39,8 +40,14 @@
                 Snake.UpdateSnakeCoordinats(Key);
                 SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
                 SnakeHeadCoordinateY = Snake.GetSnakeHeadCoordinats().GetY();
+                SnakeBodyCoordinates = Snake.GetSnakeBodyCoordinats();
                 if (SnakeHeadCoordinateX == -1 || SnakeHeadCoordinateY == 0 
                     || SnakeHeadCoordinateX == AreaWidth || SnakeHeadCoordinateY == AreaHigth-1)
+                {
+                    IsAlive = false;
+                    break;
+                }
+                if (SnakeBodyCoordinates.Any(s => s.GetX() == SnakeHeadCoordinateX && s.GetY() ==  SnakeHeadCoordinateY))
                 {
                     IsAlive = false;
                     break;
