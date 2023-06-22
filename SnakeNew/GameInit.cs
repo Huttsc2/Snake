@@ -26,7 +26,8 @@
             FoodX = food.GetX();
             FoodY = food.GetY();
             GameSpeed = speed;
-            IsEaten = false;
+            IsEaten = true;
+            SetNewFood();
             Key = null;
             IsAlive = true;
             AreaWidth = area.GetWidth();
@@ -37,35 +38,59 @@
         {
             while (IsAlive)
             {
-                Snake.UpdateSnakeCoordinats(Key);
-                SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
-                SnakeHeadCoordinateY = Snake.GetSnakeHeadCoordinats().GetY();
-                SnakeBodyCoordinates = Snake.GetSnakeBodyCoordinats();
-                if (SnakeHeadCoordinateX == -1 || SnakeHeadCoordinateY == 0 
-                    || SnakeHeadCoordinateX == AreaWidth || SnakeHeadCoordinateY == AreaHigth-1)
-                {
-                    IsAlive = false;
-                    break;
-                }
-                if (SnakeBodyCoordinates.Any(s => s.GetX() == SnakeHeadCoordinateX && s.GetY() ==  SnakeHeadCoordinateY))
-                {
-                    IsAlive = false;
-                    break;
-                }
-                if (SnakeHeadCoordinateX == FoodX && SnakeHeadCoordinateY == FoodY)
-                { 
-                    Food.SetRandomCoordinate();
-                    Snake.GrowSnake();
-                    IsEaten = true;
-                }
-                if (IsEaten)
-                {
-                    FoodX = Food.GetX();
-                    FoodY = Food.GetY();
-                    IsEaten = false;
-                }
+                UpdateCoordinates();
+                CheckHeadTouchWall();
+                CheckHeadTouchBody();
+                if (!IsAlive) break;
+                CheckFoodIsEaten();
+                SetNewFood();
                 Drawing.Draw();
                 Thread.Sleep(GameSpeed);
+            }
+        }
+
+        public void UpdateCoordinates()
+        {
+            Snake.UpdateSnakeCoordinats(Key);
+            SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
+            SnakeHeadCoordinateY = Snake.GetSnakeHeadCoordinats().GetY();
+            SnakeBodyCoordinates = Snake.GetSnakeBodyCoordinats();
+        }
+
+        public void CheckHeadTouchWall()
+        {
+            if (SnakeHeadCoordinateX == -1 || SnakeHeadCoordinateY == 0
+                    || SnakeHeadCoordinateX == AreaWidth || SnakeHeadCoordinateY == AreaHigth - 1)
+            {
+                IsAlive = false;
+            }
+        }
+
+        public void CheckHeadTouchBody()
+        {
+            if (SnakeBodyCoordinates.Any(s => s.GetX() == SnakeHeadCoordinateX && s.GetY() == SnakeHeadCoordinateY))
+            {
+                IsAlive = false;
+            }
+        }
+
+        private void CheckFoodIsEaten()
+        {
+            if (SnakeHeadCoordinateX == FoodX && SnakeHeadCoordinateY == FoodY)
+            {
+                Food.SetRandomCoordinate();
+                Snake.GrowSnake();
+                IsEaten = true;
+            }
+        }
+
+        private void SetNewFood()
+        {
+            if (IsEaten)
+            {
+                FoodX = Food.GetX();
+                FoodY = Food.GetY();
+                IsEaten = false;
             }
         }
     }
