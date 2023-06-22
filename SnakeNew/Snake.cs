@@ -22,6 +22,30 @@
             }
         }
 
+        public void UpdateSnakeCoordinats(string? key)
+        {
+            SetLastInput(key);
+            switch (lastInput)
+            {
+                case "w":
+                    SetSnakeCoordinate();
+                    SnakeCoordinats[0].SetY(SnakeCoordinats[0].GetY() - 1);
+                    break;
+                case "s":
+                    SetSnakeCoordinate();
+                    SnakeCoordinats[0].SetY(SnakeCoordinats[0].GetY() + 1);
+                    break;
+                case "d":
+                    SetSnakeCoordinate();
+                    SnakeCoordinats[0].SetX(SnakeCoordinats[0].GetX() + 2);
+                    break;
+                case "a":
+                    SetSnakeCoordinate();
+                    SnakeCoordinats[0].SetX(SnakeCoordinats[0].GetX() - 2);
+                    break;
+            }
+        }
+
         public List<Point> GetSnakeCoordinats()
         {
             return SnakeCoordinats;
@@ -47,31 +71,7 @@
                 SnakeCoordinats[SnakeCoordinats.Count - 1].GetY()));
         }
 
-        public void UpdateSnakeCoordinats(string? key)
-        {
-            SetLastInput(key);
-            switch (lastInput)
-            {
-                case "w":
-                    SetSnakeCoordinate();
-                    SnakeCoordinats[0].SetY(SnakeCoordinats[0].GetY()-1);
-                    break;
-                case "s":
-                    SetSnakeCoordinate();
-                    SnakeCoordinats[0].SetY(SnakeCoordinats[0].GetY()+1);
-                    break;
-                case "d":
-                    SetSnakeCoordinate();
-                    SnakeCoordinats[0].SetX(SnakeCoordinats[0].GetX()+2);
-                    break;
-                case "a":
-                    SetSnakeCoordinate();
-                    SnakeCoordinats[0].SetX(SnakeCoordinats[0].GetX()-2);
-                    break;
-            }
-        }
-
-        public void SetSnakeCoordinate()
+        private void SetSnakeCoordinate()
         {
             for (int i = SnakeCoordinats.Count-1; i > 0; i--)
             {
@@ -80,7 +80,7 @@
             }
         }
 
-        public void SetLastInput(string key)
+        private void SetLastInput(string key)
         {
             key = Control.CheckInput(lastInput);
             if (key != null)

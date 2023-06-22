@@ -26,15 +26,7 @@
             }
         }
 
-        public void CheckRelevantCoordinats()
-        {
-            if (Snake.GetSnakeCoordinats().Any(s => s.GetX() == XCoorinate && s.GetY() == YCoordiante))
-            {
-                IsRelevantCoordinats = false;
-            }
-        }
-
-        public void GenerateRandomCoordinates()
+        private void GenerateRandomCoordinates()
         {
             IsRelevantCoordinats = true;
             XCoorinate = Random.Next(1, AreaWight - 2);
@@ -47,6 +39,14 @@
                 }
             }
             YCoordiante = Random.Next(1, AreaHight - 1);
+        }
+
+        private void CheckRelevantCoordinats()
+        {
+            if (Snake.GetSnakeCoordinats().Any(s => s.GetX() == XCoorinate && s.GetY() == YCoordiante))
+            {
+                IsRelevantCoordinats = false;
+            }
         }
     }
 }

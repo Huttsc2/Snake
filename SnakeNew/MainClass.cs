@@ -22,7 +22,6 @@
 
             console.Initiate();
             game.Start();
-
         }
     }
 }

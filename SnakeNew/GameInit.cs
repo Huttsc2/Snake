@@ -1,4 +1,6 @@
-﻿namespace SnakeApp
+﻿using System.Xml.Linq;
+
+namespace SnakeApp
 {
     public class GameInit
     {
@@ -17,7 +19,6 @@
         Food Food { get; set; }
         Drawing Drawing { get; set; }
 
-
         public GameInit(Snake snake, Food food, Drawing drawing, Area area, int speed)
         {
             Snake = snake;
@@ -26,8 +27,7 @@
             FoodX = food.GetX();
             FoodY = food.GetY();
             GameSpeed = speed;
-            IsEaten = true;
-            SetNewFood();
+            IsEaten = false;
             Key = null;
             IsAlive = true;
             AreaWidth = area.GetWidth();
@@ -49,7 +49,7 @@
             }
         }
 
-        public void UpdateCoordinates()
+        private void UpdateCoordinates()
         {
             Snake.UpdateSnakeCoordinats(Key);
             SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
@@ -57,7 +57,7 @@
             SnakeBodyCoordinates = Snake.GetSnakeBodyCoordinats();
         }
 
-        public void CheckHeadTouchWall()
+        private void CheckHeadTouchWall()
         {
             if (SnakeHeadCoordinateX == -1 || SnakeHeadCoordinateY == 0
                     || SnakeHeadCoordinateX == AreaWidth || SnakeHeadCoordinateY == AreaHigth - 1)
@@ -66,7 +66,7 @@
             }
         }
 
-        public void CheckHeadTouchBody()
+        private void CheckHeadTouchBody()
         {
             if (SnakeBodyCoordinates.Any(s => s.GetX() == SnakeHeadCoordinateX && s.GetY() == SnakeHeadCoordinateY))
             {

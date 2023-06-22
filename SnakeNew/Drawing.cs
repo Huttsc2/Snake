@@ -24,7 +24,16 @@ namespace SnakeApp
             Buffer = new StringBuilder();
         }
 
-        public void SetCharArray()
+        public void Draw()
+        {
+            SetCharArray();
+            SetStringBuffer();
+            Console.Clear();
+            Console.Write(Buffer.ToString());
+            Buffer.Clear();
+        }
+
+        private void SetCharArray()
         {
             Array = new char[Height, Width];
             SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
@@ -61,7 +70,7 @@ namespace SnakeApp
             }
         }
 
-        public void SetStringBuffer()
+        private void SetStringBuffer()
         {
             for (int i = 0; i < Height; i++)
             {
@@ -70,15 +79,6 @@ namespace SnakeApp
                     Buffer.Append(Array[i, j]);
                 }
             }
-        }
-
-        public void Draw()
-        {
-            SetCharArray();
-            SetStringBuffer();
-            Console.Clear();
-            Console.Write(Buffer.ToString());
-            Buffer.Clear();
         }
     }
 }
