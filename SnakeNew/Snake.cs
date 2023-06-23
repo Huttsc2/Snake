@@ -79,7 +79,9 @@
                 SnakeCoordinats[i].SetX(SnakeCoordinats[i-1].GetX());
             }
         }
+        
 
+        //why is it here
         private void SetLastInput(string key)
         {
             key = Control.CheckInput(lastInput);

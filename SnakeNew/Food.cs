@@ -2,26 +2,24 @@
 {
     public class Food
     {
-        private int AreaWight { get; set; }
-        private int AreaHight { get; set; }
+        private Area Area;
         private Snake Snake { get; set; }
         private List<Point> CurrentPoints { get; set; }
         private Point NewFood { get; set; }
 
         public Food(Area area, Snake snake)
         {
-            AreaWight = area.GetWidth();
-            AreaHight = area.GetHeight();
             Snake = snake;
+            Area = area;
             CurrentPoints = new List<Point>();
             SetAreaPoints();
         }
 
         public void SetAreaPoints()
         {
-            for (int i = 1; i < AreaWight-1; i+=2)
+            for (int i = 1; i < Area.GetWidth()-1; i+=2)
             {
-                for (int j = 1; j < AreaHight-1; j++)
+                for (int j = 1; j < Area.GetHeight()-1; j++)
                 {
                     CurrentPoints.Add(new Point(i, j));
                 }

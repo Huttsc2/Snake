@@ -4,8 +4,7 @@ namespace SnakeApp
 {
     public class GameInit
     {
-        private int SnakeHeadCoordinateX {  get; set; }
-        private int SnakeHeadCoordinateY { get; set; }
+        public Point SnakeHeadCoordinates { get; set; }
         private int FoodX { get; set; }
         private int FoodY { get; set; }
         private bool IsEaten { get; set; }
@@ -53,15 +52,14 @@ namespace SnakeApp
         private void UpdateCoordinates()
         {
             Snake.UpdateSnakeCoordinats(Key);
-            SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
-            SnakeHeadCoordinateY = Snake.GetSnakeHeadCoordinats().GetY();
+            SnakeHeadCoordinates = Snake.GetSnakeHeadCoordinats();
             SnakeBodyCoordinates = Snake.GetSnakeBodyCoordinats();
         }
 
         private void CheckHeadTouchWall()
         {
-            if (SnakeHeadCoordinateX == -1 || SnakeHeadCoordinateY == 0
-                    || SnakeHeadCoordinateX == AreaWidth || SnakeHeadCoordinateY == AreaHigth - 1)
+            if (SnakeHeadCoordinates.GetX() == -1 || SnakeHeadCoordinates.GetY() == 0
+                    || SnakeHeadCoordinates.GetX() == AreaWidth || SnakeHeadCoordinates.GetY() == AreaHigth - 1)
             {
                 IsAlive = false;
             }
@@ -69,7 +67,7 @@ namespace SnakeApp
 
         private void CheckHeadTouchBody()
         {
-            if (SnakeBodyCoordinates.Any(s => s.GetX() == SnakeHeadCoordinateX && s.GetY() == SnakeHeadCoordinateY))
+            if (SnakeBodyCoordinates.Any(s => s.GetX() == SnakeHeadCoordinates.GetX() && s.GetY() == SnakeHeadCoordinates.GetY()))
             {
                 IsAlive = false;
             }
@@ -77,7 +75,7 @@ namespace SnakeApp
 
         private void CheckFoodIsEaten()
         {
-            if (SnakeHeadCoordinateX == FoodX && SnakeHeadCoordinateY == FoodY)
+            if (SnakeHeadCoordinates.GetX() == FoodX && SnakeHeadCoordinates.GetY() == FoodY)
             {
                 Food.SetNewFood();
                 Snake.GrowSnake();

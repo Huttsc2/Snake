@@ -4,14 +4,11 @@ namespace SnakeApp
 {
     public class Drawing
     {
+
         private Area Area { get; set; }
         private Snake Snake { get; set; }    
         private Food Food { get; set; }
-        private int Height { get; set; }
-        private int Width { get; set; }
         private char[,] Array { get; set; }
-        private int SnakeHeadCoordinateX { get; set; }
-        private int SnakeHeadCoordinateY { get; set; }
         private StringBuilder Buffer { get; set; }
 
         public Drawing(Area area, Snake snake, Food food)
@@ -19,8 +16,6 @@ namespace SnakeApp
             Area = area;
             Snake = snake;
             Food = food;
-            Height = Area.GetHeight();
-            Width = Area.GetWidth();
             Buffer = new StringBuilder();
         }
 
@@ -35,22 +30,21 @@ namespace SnakeApp
 
         private void SetCharArray()
         {
-            Array = new char[Height, Width];
-            SnakeHeadCoordinateX = Snake.GetSnakeHeadCoordinats().GetX();
-            SnakeHeadCoordinateY = Snake.GetSnakeHeadCoordinats().GetY(); 
-            for (int i = 0; i < Height; i++)
+            Array = new char[Area.GetHeight(), Area.GetWidth()];
+            for (int i = 0; i < Area.GetHeight(); i++)
             {
-                for (int j = 0; j < Width; j++)
+                for (int j = 0; j < Area.GetWidth(); j++)
                 {
-                    if (j == 0 || i == 0 || i == Height - 1)
+                    if (j == 0 || i == 0 || i == Area.GetHeight() - 1)
                     {
                         Array[i, j] = '▒';
                     }
-                    else if (j == Width - 1)
+                    else if (j == Area.GetWidth() - 1)
                     {
                         Array[i, j] = '▒';
                     }
-                    else if (SnakeHeadCoordinateY == i && SnakeHeadCoordinateX == j)
+                    else if (Snake.GetSnakeHeadCoordinats().GetY() == i 
+                        && Snake.GetSnakeHeadCoordinats().GetX() == j)
                     {
                         Array[i, j] = '☻';
                     }
@@ -72,9 +66,9 @@ namespace SnakeApp
 
         private void SetStringBuffer()
         {
-            for (int i = 0; i < Height; i++)
+            for (int i = 0; i < Area.GetHeight(); i++)
             {
-                for (int j = 0; j < Width; j++)
+                for (int j = 0; j < Area.GetWidth(); j++)
                 {
                     Buffer.Append(Array[i, j]);
                 }
