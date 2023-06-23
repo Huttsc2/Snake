@@ -4,17 +4,17 @@ namespace SnakeApp
 {
     public class GameInit
     {
-        private static int SnakeHeadCoordinateX {  get; set; }
-        private static int SnakeHeadCoordinateY { get; set; }
-        private static int FoodX { get; set; }
-        private static int FoodY { get; set; }
-        private static bool IsEaten { get; set; }
-        private static string? Key { get; set; }
-        private static int GameSpeed { get; set; }
-        private static bool IsAlive { get; set; }
-        private static int AreaWidth { get; set; }
-        private static int AreaHigth { get; set; }
-        private static List<Point> SnakeBodyCoordinates { get; set; }
+        private int SnakeHeadCoordinateX {  get; set; }
+        private int SnakeHeadCoordinateY { get; set; }
+        private int FoodX { get; set; }
+        private int FoodY { get; set; }
+        private bool IsEaten { get; set; }
+        private string? Key { get; set; }
+        private int GameSpeed { get; set; }
+        private bool IsAlive { get; set; }
+        private int AreaWidth { get; set; }
+        private int AreaHigth { get; set; }
+        private List<Point> SnakeBodyCoordinates { get; set; }
         Snake Snake { get; set; }
         Food Food { get; set; }
         Drawing Drawing { get; set; }
@@ -24,14 +24,15 @@ namespace SnakeApp
             Snake = snake;
             Food = food;
             Drawing = drawing;
-            FoodX = food.GetX();
-            FoodY = food.GetY();
             GameSpeed = speed;
             IsEaten = false;
             Key = null;
             IsAlive = true;
             AreaWidth = area.GetWidth();
             AreaHigth = area.GetHeight();
+            Food.SetNewFood();
+            FoodX = Food.GetNewFood().GetX();
+            FoodY = Food.GetNewFood().GetY();
         }
 
         public void Start()
@@ -78,7 +79,7 @@ namespace SnakeApp
         {
             if (SnakeHeadCoordinateX == FoodX && SnakeHeadCoordinateY == FoodY)
             {
-                Food.SetRandomCoordinate();
+                Food.SetNewFood();
                 Snake.GrowSnake();
                 IsEaten = true;
             }
@@ -88,8 +89,8 @@ namespace SnakeApp
         {
             if (IsEaten)
             {
-                FoodX = Food.GetX();
-                FoodY = Food.GetY();
+                FoodX = Food.GetNewFood().GetX();
+                FoodY = Food.GetNewFood().GetY();
                 IsEaten = false;
             }
         }

@@ -2,11 +2,11 @@
 {
     public class Snake
     {
-        private static List<Point> SnakeCoordinats { get; set; }
-        private static List<Point> SnakeBodyCoordinates { get; set; }
-        private static int StartingSnakeLenght { get; set; }
-        private static string? lastInput { get; set; }
-        private static Control Control { get; set; }
+        private List<Point> SnakeCoordinats { get; set; }
+        private List<Point> SnakeBodyCoordinates { get; set; }
+        private int StartingSnakeLenght { get; set; }
+        private string? lastInput { get; set; }
+        private Control Control { get; set; }
         
 
         public Snake(int x, int y, int lenght)

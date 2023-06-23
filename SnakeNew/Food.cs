@@ -1,52 +1,48 @@
 ﻿namespace SnakeApp
 {
-    public class Food : Point
+    public class Food
     {
-        private static int AreaWight { get; set; }
-        private static int AreaHight { get; set; }
-        private static Snake Snake { get; set; }
-        private static bool IsRelevantCoordinats { get; set; }
-        private static Random Random { get; set; }
+        private int AreaWight { get; set; }
+        private int AreaHight { get; set; }
+        private Snake Snake { get; set; }
+        private List<Point> CurrentPoints { get; set; }
+        private Point NewFood { get; set; }
 
-        public Food(int x, int y, Area area, Snake snake) : base(x, y)
+        public Food(Area area, Snake snake)
         {
             AreaWight = area.GetWidth();
             AreaHight = area.GetHeight();
             Snake = snake;
-            Random = new Random();
+            CurrentPoints = new List<Point>();
+            SetAreaPoints();
         }
 
-        public void SetRandomCoordinate()
+        public void SetAreaPoints()
         {
-            IsRelevantCoordinats = false;
-            while (!IsRelevantCoordinats)
+            for (int i = 1; i < AreaWight-1; i+=2)
             {
-                GenerateRandomCoordinates();
-                CheckRelevantCoordinats();
-            }
-        }
-
-        private void GenerateRandomCoordinates()
-        {
-            IsRelevantCoordinats = true;
-            XCoorinate = Random.Next(1, AreaWight - 2);
-            if (XCoorinate % 2 == 0)
-            {
-                XCoorinate++;
-                if (XCoorinate > AreaWight - 2)
+                for (int j = 1; j < AreaHight-1; j++)
                 {
-                    XCoorinate -= 2;
+                    CurrentPoints.Add(new Point(i, j));
                 }
             }
-            YCoordiante = Random.Next(1, AreaHight - 1);
         }
 
-        private void CheckRelevantCoordinats()
+        public void SetFreePointsForFood()
         {
-            if (Snake.GetSnakeCoordinats().Any(s => s.GetX() == XCoorinate && s.GetY() == YCoordiante))
-            {
-                IsRelevantCoordinats = false;
-            }
+            CurrentPoints.RemoveAll(p => Snake.GetSnakeCoordinats()
+            .Any(partial => partial.GetX() == p.GetX() && partial.GetY() == p.GetY()));
+        }
+
+        public void SetNewFood()
+        {
+            SetFreePointsForFood();
+            NewFood = CurrentPoints[new Random().Next(CurrentPoints.Count-1)];
+        }
+
+        public Point GetNewFood()
+        {
+            return NewFood;
         }
     }
 }

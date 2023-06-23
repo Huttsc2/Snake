@@ -4,8 +4,8 @@ namespace SnakeApp
 {
     public class ConsoleInit
     {
-        private int Widht;
-        private int Height;
+        private int Widht { get; set; }
+        private int Height { get; set; }
         public ConsoleInit(int widht, int height)
         {
             Widht = widht;

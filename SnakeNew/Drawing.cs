@@ -4,15 +4,15 @@ namespace SnakeApp
 {
     public class Drawing
     {
-        private static Area Area { get; set; }
-        private static Snake Snake { get; set; }    
-        private static Food Food { get; set; }
-        private static int Height { get; set; }
-        private static int Width { get; set; }
-        private static char[,] Array { get; set; }
-        private static int SnakeHeadCoordinateX { get; set; }
-        private static int SnakeHeadCoordinateY { get; set; }
-        private static StringBuilder Buffer { get; set; }
+        private Area Area { get; set; }
+        private Snake Snake { get; set; }    
+        private Food Food { get; set; }
+        private int Height { get; set; }
+        private int Width { get; set; }
+        private char[,] Array { get; set; }
+        private int SnakeHeadCoordinateX { get; set; }
+        private int SnakeHeadCoordinateY { get; set; }
+        private StringBuilder Buffer { get; set; }
 
         public Drawing(Area area, Snake snake, Food food)
         {
@@ -58,7 +58,7 @@ namespace SnakeApp
                     {
                         Array[i, j] = '●';
                     }
-                    else if (j == Food.GetX() && i == Food.GetY())
+                    else if (j == Food.GetNewFood().GetX() && i == Food.GetNewFood().GetY())
                     {
                         Array[i, j] = '*';
                     }
