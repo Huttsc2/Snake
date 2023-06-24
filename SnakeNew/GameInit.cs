@@ -14,6 +14,7 @@ namespace SnakeApp
         private Food Food { get; set; }
         private Drawing Drawing { get; set; }
         private FreeCellsSearcher Searcher { get; set; }
+        private int Score { get; set; }
 
         public GameInit(Snake snake, Food food, Drawing drawing
             , Area area, FreeCellsSearcher searcher, int speed)
@@ -28,6 +29,7 @@ namespace SnakeApp
             Area = area;
             Searcher = searcher;
             IsYouWin = false;
+            Score = 0;
         }
 
         public void Start()
@@ -51,10 +53,14 @@ namespace SnakeApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("YOU DIED");
                 Console.ResetColor();
+                Thread.Sleep(2000);
+                Console.WriteLine("Your score: " + Score);
             }
             if (IsYouWin)
             {
                 Console.WriteLine("YOU WIN!");
+                Thread.Sleep(2000);
+                Console.WriteLine("Your score: " + Score);
             }
             Thread.Sleep(2000);
         }
@@ -100,6 +106,7 @@ namespace SnakeApp
             {
                 Snake.GrowSnake();
                 IsEaten = true;
+                Score++;
             }
         }
 
