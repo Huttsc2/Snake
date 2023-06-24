@@ -47,6 +47,7 @@ namespace SnakeApp
                 Drawing.Draw();
                 Thread.Sleep(GameSpeed);
             }
+            Thread.Sleep(1500);
             Console.Clear();
             if (!IsAlive)
             {
