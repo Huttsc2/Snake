@@ -8,12 +8,15 @@ namespace SnakeApp
         private string? Key { get; set; }
         private int GameSpeed { get; set; }
         private bool IsAlive { get; set; }
+        private bool IsYouWin { get; set; }
         private Area Area { get; set; }
         private Snake Snake { get; set; }
         private Food Food { get; set; }
         private Drawing Drawing { get; set; }
+        private FreeCellsSearcher Searcher { get; set; }
 
-        public GameInit(Snake snake, Food food, Drawing drawing, Area area, int speed)
+        public GameInit(Snake snake, Food food, Drawing drawing
+            , Area area, FreeCellsSearcher searcher, int speed)
         {
             Snake = snake;
             Food = food;
@@ -23,6 +26,8 @@ namespace SnakeApp
             Key = null;
             IsAlive = true;
             Area = area;
+            Searcher = searcher;
+            IsYouWin = false;
         }
 
         public void Start()
@@ -34,9 +39,31 @@ namespace SnakeApp
                 CheckHeadTouchBody();
                 if (!IsAlive) break;
                 CheckFoodIsEaten();
+                CheckYouWin();
+                if (IsYouWin) break;
                 SetNewFood();
                 Drawing.Draw();
                 Thread.Sleep(GameSpeed);
+            }
+            Console.Clear();
+            if (!IsAlive)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("YOU DIED");
+                Console.ResetColor();
+            }
+            if (IsYouWin)
+            {
+                Console.WriteLine("YOU WIN!");
+            }
+            Thread.Sleep(2000);
+        }
+
+        private void CheckYouWin()
+        {
+            if (Searcher.GetFreeCells().Count == 1)
+            {
+                IsYouWin = true;
             }
         }
 

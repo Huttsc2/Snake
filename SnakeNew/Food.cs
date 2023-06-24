@@ -15,9 +15,7 @@
         public void SetNewFood()
         {
             SuitableCells = new List<Point>(Searcher.GetFreeCells());
-            NewFood = SuitableCells[new Random().Next(SuitableCells.Count-1)]; 
-            //здесь ошибка, SuitanleCells уходит в ноль
-            //догадка - каждый раз уменьшает при каком то дейсвии
+            NewFood = SuitableCells[new Random().Next(SuitableCells.Count-1)];
         }
 
         public Point GetNewFood()
