@@ -4,7 +4,6 @@ namespace SnakeApp
 {
     public class Drawing
     {
-
         private Area Area { get; set; }
         private Snake Snake { get; set; }    
         private Food Food { get; set; }
@@ -43,12 +42,12 @@ namespace SnakeApp
                     {
                         Array[i, j] = '▒';
                     }
-                    else if (Snake.GetSnakeHeadCoordinats().GetY() == i 
-                        && Snake.GetSnakeHeadCoordinats().GetX() == j)
+                    else if (Snake.GetSnakeHeadCoordinates().GetY() == i 
+                        && Snake.GetSnakeHeadCoordinates().GetX() == j)
                     {
                         Array[i, j] = '☻';
                     }
-                    else if (Snake.GetSnakeCoordinats().Any(e => e.GetY() == i && e.GetX() == j))
+                    else if (Snake.GetSnakeCoordinates().Any(e => e.GetY() == i && e.GetX() == j))
                     {
                         Array[i, j] = '●';
                     }

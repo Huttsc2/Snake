@@ -13,9 +13,10 @@
         {
             Snake snake = new Snake(SnakeHeadCoordinateX, SnakeHeadCoordinateY, StartingSnakeLenght);
             Area area = new Area(Width, Height);
-            Food food = new Food(area, snake);
+            FreeCellsSearcher searcher = new FreeCellsSearcher(area.GetAreaCells(), snake.GetSnakeCoordinates());
+            Food food = new Food(searcher);
             Drawing drawing = new Drawing(area, snake, food);
-            ConsoleInit console = new ConsoleInit(Width, Height);
+            ConsoleInit console = new ConsoleInit(area);
             GameInit game = new GameInit(snake, food, drawing, area, GameSpeed);
 
             console.Initiate();

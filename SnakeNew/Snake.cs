@@ -5,16 +5,13 @@
         private List<Point> SnakeCoordinats { get; set; }
         private List<Point> SnakeBodyCoordinates { get; set; }
         private int StartingSnakeLenght { get; set; }
-        private string? lastInput { get; set; }
         private Control Control { get; set; }
         
 
         public Snake(int x, int y, int lenght)
         {
             SnakeCoordinats = new();
-            SnakeBodyCoordinates = new();
             StartingSnakeLenght = lenght;
-            lastInput = null;
             Control = new Control();
             for (int i = 0; i < StartingSnakeLenght; i++)
             {
@@ -22,10 +19,10 @@
             }
         }
 
-        public void UpdateSnakeCoordinats(string? key)
+        public void UpdateSnakeCoordinates(string? key)
         {
-            SetLastInput(key);
-            switch (lastInput)
+            Control.SetLastInput();
+            switch (Control.GetLastInput())
             {
                 case "w":
                     SetSnakeCoordinate();
@@ -46,21 +43,24 @@
             }
         }
 
-        public List<Point> GetSnakeCoordinats()
+        public List<Point> GetSnakeCoordinates()
         {
             return SnakeCoordinats;
         }
 
-        public List<Point> GetSnakeBodyCoordinats()
+        public List<Point> GetSnakeBodyCoordinates()
         {
-            for (int i = 1; i < SnakeCoordinats.Count; i++)
-            {
-                SnakeBodyCoordinates.Add(SnakeCoordinats[i]);
-            }
+            SetSnakeBodyCoordinates();
             return SnakeBodyCoordinates;
         }
 
-        public Point GetSnakeHeadCoordinats()
+        private void SetSnakeBodyCoordinates()
+        {
+            SnakeBodyCoordinates = new(GetSnakeCoordinates());
+            SnakeBodyCoordinates.RemoveAt(0);
+        }
+
+        public Point GetSnakeHeadCoordinates()
         {
             return SnakeCoordinats[0];
         }
@@ -73,21 +73,10 @@
 
         private void SetSnakeCoordinate()
         {
-            for (int i = SnakeCoordinats.Count-1; i > 0; i--)
+            for (int i = SnakeCoordinats.Count - 1; i > 0; i--)
             {
-                SnakeCoordinats[i].SetY(SnakeCoordinats[i-1].GetY());
-                SnakeCoordinats[i].SetX(SnakeCoordinats[i-1].GetX());
-            }
-        }
-        
-
-        //why is it here
-        private void SetLastInput(string key)
-        {
-            key = Control.CheckInput(lastInput);
-            if (key != null)
-            {
-                lastInput = key;
+                SnakeCoordinats[i].SetY(SnakeCoordinats[i - 1].GetY());
+                SnakeCoordinats[i].SetX(SnakeCoordinats[i - 1].GetX());
             }
         }
     }

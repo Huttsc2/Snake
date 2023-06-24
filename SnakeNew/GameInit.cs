@@ -4,19 +4,14 @@ namespace SnakeApp
 {
     public class GameInit
     {
-        public Point SnakeHeadCoordinates { get; set; }
-        private int FoodX { get; set; }
-        private int FoodY { get; set; }
         private bool IsEaten { get; set; }
         private string? Key { get; set; }
         private int GameSpeed { get; set; }
         private bool IsAlive { get; set; }
-        private int AreaWidth { get; set; }
-        private int AreaHigth { get; set; }
-        private List<Point> SnakeBodyCoordinates { get; set; }
-        Snake Snake { get; set; }
-        Food Food { get; set; }
-        Drawing Drawing { get; set; }
+        private Area Area { get; set; }
+        private Snake Snake { get; set; }
+        private Food Food { get; set; }
+        private Drawing Drawing { get; set; }
 
         public GameInit(Snake snake, Food food, Drawing drawing, Area area, int speed)
         {
@@ -27,11 +22,7 @@ namespace SnakeApp
             IsEaten = false;
             Key = null;
             IsAlive = true;
-            AreaWidth = area.GetWidth();
-            AreaHigth = area.GetHeight();
-            Food.SetNewFood();
-            FoodX = Food.GetNewFood().GetX();
-            FoodY = Food.GetNewFood().GetY();
+            Area = area;
         }
 
         public void Start()
@@ -51,15 +42,15 @@ namespace SnakeApp
 
         private void UpdateCoordinates()
         {
-            Snake.UpdateSnakeCoordinats(Key);
-            SnakeHeadCoordinates = Snake.GetSnakeHeadCoordinats();
-            SnakeBodyCoordinates = Snake.GetSnakeBodyCoordinats();
+            Snake.UpdateSnakeCoordinates(Key);
         }
 
         private void CheckHeadTouchWall()
         {
-            if (SnakeHeadCoordinates.GetX() == -1 || SnakeHeadCoordinates.GetY() == 0
-                    || SnakeHeadCoordinates.GetX() == AreaWidth || SnakeHeadCoordinates.GetY() == AreaHigth - 1)
+            if (Snake.GetSnakeHeadCoordinates().GetX() == -1 
+                || Snake.GetSnakeHeadCoordinates().GetY() == 0
+                || Snake.GetSnakeHeadCoordinates().GetX() == Area.GetWidth() 
+                || Snake.GetSnakeHeadCoordinates().GetY() == Area.GetHeight() - 1)
             {
                 IsAlive = false;
             }
@@ -67,7 +58,9 @@ namespace SnakeApp
 
         private void CheckHeadTouchBody()
         {
-            if (SnakeBodyCoordinates.Any(s => s.GetX() == SnakeHeadCoordinates.GetX() && s.GetY() == SnakeHeadCoordinates.GetY()))
+            if (Snake.GetSnakeBodyCoordinates().Any
+                (s => s.GetX() == Snake.GetSnakeHeadCoordinates().GetX() 
+                && s.GetY() == Snake.GetSnakeHeadCoordinates().GetY()))
             {
                 IsAlive = false;
             }
@@ -75,9 +68,9 @@ namespace SnakeApp
 
         private void CheckFoodIsEaten()
         {
-            if (SnakeHeadCoordinates.GetX() == FoodX && SnakeHeadCoordinates.GetY() == FoodY)
+            if (Snake.GetSnakeHeadCoordinates().GetX() == Food.GetNewFood().GetX() 
+                && Snake.GetSnakeHeadCoordinates().GetY() == Food.GetNewFood().GetY())
             {
-                Food.SetNewFood();
                 Snake.GrowSnake();
                 IsEaten = true;
             }
@@ -87,8 +80,7 @@ namespace SnakeApp
         {
             if (IsEaten)
             {
-                FoodX = Food.GetNewFood().GetX();
-                FoodY = Food.GetNewFood().GetY();
+                Food.SetNewFood();
                 IsEaten = false;
             }
         }
