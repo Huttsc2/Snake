@@ -14,7 +14,7 @@
 
         private void SetFreeCells()
         {
-            FreeCells = AreaCells;
+            FreeCells = new(AreaCells);
             FreeCells.RemoveAll((p => SnakeCoordinates
             .Any(partial => partial.GetX() == p.GetX() && partial.GetY() == p.GetY())));
         }
